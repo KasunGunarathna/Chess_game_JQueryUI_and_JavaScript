@@ -3,6 +3,38 @@
 var currentMove = 'white';
 //document ready
 $(document).ready(function() {
+    $('.space').mouseover(function() {
+        $(this).css('background-color', 'green');
+    });
+    $('.space').mouseleave(function() {
+        $(this).css('background-color', '');
+        $('.space').droppable("enable");
+    });
+    $('.icon').mouseenter(function() {
+
+        a = $(this).attr('class');
+        // console.log(this);
+        // pawnMove;
+        var cname = $(this).attr('class').split(' ');
+        var value = cname[1];
+        var yx = $(this).parent().attr('id');
+        $('.space').droppable("disable");
+        switch (value) {
+            case "wpawn":
+                whitepawn(yx);
+                break;
+            case "bpawn":
+                blackpawn(yx);
+                break;
+            default:
+        }
+        // $('.space').droppable("enable");
+    });
+    $('.icon').mouseleave(function() {
+        $(".space").css('background-color', '');
+        $('.space').droppable("enable");
+
+    });
     //all icons came to previous position if cannot dropable
     $('.icon').draggable({
         revert: 'invalid',
@@ -31,6 +63,8 @@ $(document).ready(function() {
                 // $(droppedOn).children().draggable("enable");
                 switchTurn();
 
+                // rotateAnimation("back", 5);
+                // rotateAnimation("icon", 5);
             } else {
                 var classesHold = $(droppedOn).children().attr('class').split(' ');
                 var classesDrag = $(dropped).attr('class').split(' ');
@@ -41,6 +75,7 @@ $(document).ready(function() {
                         $(droppedOn).children().detach().appendTo('.wspace');
                         $(dropped).detach().css({ top: 0, left: 0, right: 0, bottom: 0 }).appendTo(droppedOn);
                         switchTurn();
+                        // document.getElementById("board").style.transform = "rotate(180deg)";
                     } else if (classesHold[2] == 'wt') {
                         $(droppedOn).children().detach().appendTo('.bspace');
                         $(dropped).detach().css({ top: 0, left: 0, right: 0, bottom: 0 }).appendTo(droppedOn);
@@ -49,6 +84,7 @@ $(document).ready(function() {
                         $(droppedOn).children().detach();
                         $(dropped).detach().css({ top: 0, left: 0, right: 0, bottom: 0 }).appendTo(droppedOn);
                         switchTurn();
+                        // document.getElementById("board").style.transform = "rotate(180deg)";
                     }
 
                 }
@@ -56,6 +92,7 @@ $(document).ready(function() {
         },
         accept: ".wt"
     });
+
 });
 
 function switchTurn() {
@@ -67,9 +104,8 @@ function switchTurn() {
         $('.space').droppable({
             accept: '.bl'
         });
-        // var c = document.getElementById("chesscanvas");
-        // var ctx = c.getContext("2d");
-        // ctx.rotate(Math.PI);
+
+        // document.getElementsByClass("icon").style.transform = "rotate(180deg)";
 
     } else {
         currentMove = "white";
@@ -78,8 +114,79 @@ function switchTurn() {
         $('.space').droppable({
             accept: '.wt'
         });
-        // var c = document.getElementById("chesscanvas");
-        // var ctx = c.getContext("2d");
-        // ctx.rotate(Math.PI);
+        // document.getElementById("board").style.transform = "rotate(180deg)";
+        // document.getElementsByClass("icon").style.transform = "rotate(180deg)";
+
+    }
+}
+
+var looper;
+var degrees = 0;
+
+function rotateAnimation(el, speed) {
+    var elem = document.getElementsByClassName(el)[0];
+    if (navigator.userAgent.match("Chrome")) {
+        elem.style.WebkitTransform = "rotate(" + degrees + "deg)";
+    } else if (navigator.userAgent.match("Firefox")) {
+        elem.style.MozTransform = "rotate(" + degrees + "deg)";
+    } else if (navigator.userAgent.match("MSIE")) {
+        elem.style.msTransform = "rotate(" + degrees + "deg)";
+    } else if (navigator.userAgent.match("Opera")) {
+        elem.style.OTransform = "rotate(" + degrees + "deg)";
+    } else {
+        elem.style.transform = "rotate(" + degrees + "deg)";
+    }
+    looper = setTimeout('rotateAnimation(\'' + el + '\',' + speed + ')', speed);
+    degrees++;
+    // console.log(ang);
+    if (degrees >= 181) {
+        myStopFunction();
+    }
+    // document.getElementById("status").innerHTML = "rotate("+degrees+"deg)";
+}
+
+function myStopFunction() {
+    clearTimeout(looper);
+}
+
+function whitepawn(iconId) {
+    if (iconId.charAt(0) == 2) {
+        var ed = iconId.charAt(0);
+        var ed1 = parseInt(ed) + 1;
+        var ed2 = ed1 + 1;
+        var s1 = iconId.replace(ed, ed1);
+        var s2 = iconId.replace(ed, ed2);
+        // var left = parseInt(iconId.charAt(1)) - 1;
+        // var right = parseInt(iconId.charAt(1)) + 1;
+        $("#" + s1).css('background-color', 'green');
+        $("#" + s1).droppable("enable");
+        $("#" + s2).css('background-color', 'green');
+        $("#" + s2).droppable("enable");
+    } else {
+        var ed = iconId.charAt(0);
+        var ed1 = parseInt(ed) + 1;
+        var s1 = iconId.replace(ed, ed1);
+        $("#" + s1).css('background-color', 'green');
+        $("#" + s1).droppable("enable");
+    }
+}
+
+function blackpawn(iconId) {
+    if (iconId.charAt(0) == 7) {
+        var ed = iconId.charAt(0);
+        var ed1 = parseInt(ed) - 1;
+        var ed2 = ed1 - 1;
+        var s1 = iconId.replace(ed, ed1);
+        var s2 = iconId.replace(ed, ed2);
+        $("#" + s1).css('background-color', 'green');
+        $("#" + s1).droppable("enable");
+        $("#" + s2).css('background-color', 'green');
+        $("#" + s2).droppable("enable");
+    } else {
+        var ed = iconId.charAt(0);
+        var ed1 = parseInt(ed) - 1;
+        var s1 = iconId.replace(ed, ed1);
+        $("#" + s1).css('background-color', 'green');
+        $("#" + s1).droppable("enable");
     }
 }

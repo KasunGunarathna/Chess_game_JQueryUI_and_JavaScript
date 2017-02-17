@@ -1,3 +1,12 @@
+.board {
+    -webkit-transition-property: transform;
+    /* Safari */
+    -webkit-transition-duration: 5s;
+    /* Safari */
+    transition-property: transform;
+    transition-duration: 5s;
+}
+
 .white {
     top: 10px;
     left: 10px;
@@ -21,7 +30,7 @@
     border-style: solid;
     height: 45px;
     width: 45px;
-    background-color: #B00000;
+    background-color: brown;
 }
 
 .wspace {
