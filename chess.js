@@ -151,23 +151,75 @@ function myStopFunction() {
 
 function whitepawn(iconId) {
     if (iconId.charAt(0) == 2) {
+
         var ed = iconId.charAt(0);
         var ed1 = parseInt(ed) + 1;
         var ed2 = ed1 + 1;
+
         var s1 = iconId.replace(ed, ed1);
         var s2 = iconId.replace(ed, ed2);
-        // var left = parseInt(iconId.charAt(1)) - 1;
-        // var right = parseInt(iconId.charAt(1)) + 1;
+
+        var left = parseInt(iconId.charAt(1)) - 1;
+        var right = parseInt(iconId.charAt(1)) + 1;
+
+        var killleft = s1.replace(iconId.charAt(1), left);
+        var killright = s1.replace(iconId.charAt(1), right);
+
+        if ($("#" + killleft).children().hasClass('bl') == true) {
+            $("#" + killleft).css('background-color', 'red');
+            $("#" + killleft).droppable("enable");
+        } else {
+            $("#" + killleft).css('background-color', '');
+        }
+        if ($("#" + killright).children().hasClass('bl') == true) {
+            $("#" + killright).css('background-color', 'red');
+            $("#" + killright).droppable("enable");
+        } else {
+            $("#" + killright).css('background-color', '');
+        }
+
+        console.log(killleft);
+        console.log(killright);
+        console.log($("#" + killleft).children().hasClass('icon'));
+        console.log($("#" + killright).children().hasClass('icon'));
         $("#" + s1).css('background-color', 'green');
         $("#" + s1).droppable("enable");
         $("#" + s2).css('background-color', 'green');
         $("#" + s2).droppable("enable");
     } else {
+
         var ed = iconId.charAt(0);
         var ed1 = parseInt(ed) + 1;
         var s1 = iconId.replace(ed, ed1);
+
         $("#" + s1).css('background-color', 'green');
         $("#" + s1).droppable("enable");
+
+        var left = parseInt(iconId.charAt(1)) - 1;
+        var right = parseInt(iconId.charAt(1)) + 1;
+
+        var killleft = s1.replace(iconId.charAt(1), left);
+        var killright = s1.replace(iconId.charAt(1), right);
+
+        if ($("#" + killleft).children().hasClass('bl') == true) {
+            $("#" + killleft).css('background-color', 'red');
+            $("#" + killleft).droppable("enable");
+        } else {
+            $("#" + killleft).css('background-color', '');
+        }
+        if ($("#" + killright).children().hasClass('bl') == true) {
+            $("#" + killright).css('background-color', 'red');
+            $("#" + killright).droppable("enable");
+        } else {
+            $("#" + killright).css('background-color', '');
+        }
+        // $("#" + killleft).css('background-color', 'red');
+        // $("#" + killright).css('background-color', 'red');
+
+        console.log(killleft);
+        console.log(killright);
+        console.log($("#" + killleft).children().hasClass('icon'));
+        console.log($("#" + killright).children().hasClass('icon'));
     }
 }
 
