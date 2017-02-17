@@ -1,0 +1,62 @@
+.white {
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+    right: 10px;
+    bolder: 5px;
+    border-color: #999;
+    border-style: solid;
+    height: 45px;
+    width: 45px;
+    background-color: #CCCAC8;
+}
+
+.black {
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+    right: 10px;
+    bolder: 5px;
+    border-color: #999;
+    border-style: solid;
+    height: 45px;
+    width: 45px;
+    background-color: #B00000;
+}
+
+.wspace {
+    height: 45px;
+    width: 45px;
+}
+
+.bspace {
+    height: 45px;
+    width: 45px;
+}
+
+.icon {
+    height: 35px;
+    width: 35px;
+}
+
+.back {
+    background-color: #252525;
+    border-color: #900;
+    border-style: double;
+}
+
+.rownum {
+    color: #FFF;
+    width: 15px;
+    text-align: center;
+}
+
+.colnum {
+    color: #FFF;
+    height: 15px;
+    text-align: center;
+}
+
+.select {
+    background-color: #0FC;
+}

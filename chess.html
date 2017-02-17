@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Knight's Night</title>
+    <h1>Chess</h1>
+    <span>Knight's Night</span>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="chess.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="chess.js"></script>
+</head>
+
+<body>
+    <!--<canvas id="chesscanvas" width="550" height="550">-->
+    <table>
+        <!--blackout-->
+        <tr class="bspace">
+        </tr>
+    </table>
+    <table class="back">
+
+        <!--row1-->
+        <tr>
+            <td class="colnum"></td>
+            <td class="colnum">A</td>
+            <td class="colnum">B</td>
+            <td class="colnum">C</td>
+            <td class="colnum">D</td>
+            <td class="colnum">E</td>
+            <td class="colnum">F</td>
+            <td class="colnum">G</td>
+            <td class="colnum">H</td>
+        </tr>
+        <tr>
+            <td class="rownum">8</td>
+            <td class="white A8 space"><img class="icon castel bl" src="b5.png"></td>
+            <td class="black B8 space"><img class="icon knight bl" src="b4.png"></td>
+            <td class="white C8 space"><img class="icon bishop bl" src="b3.png"></td>
+            <td class="black space"><img class="icon king bl" src="b1.png"></td>
+            <td class="white space"><img class="icon queen bl" src="b2.png"></td>
+            <td class="black space"><img class="icon bishop bl" src="b3.png"></td>
+            <td class="white space"><img class="icon knight bl" src="b4.png"></td>
+            <td class="black space"><img class="icon castel bl" src="b5.png"></td>
+            <td class="rownum">8</td>
+        </tr>
+        <!--row2-->
+        <tr>
+            <td class="rownum">7</td>
+            <td class="black space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="white space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="black space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="white space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="black space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="white space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="black space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="white space"><img class="icon pawn bl" src="b6.png"></td>
+            <td class="rownum">7</td>
+        </tr>
+        <!--row3-->
+        <tr>
+            <td class="rownum">6</td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="rownum">6</td>
+        </tr>
+        <!--row4-->
+        <tr>
+            <td class="rownum">5</td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="rownum ">5</td>
+        </tr>
+        <!--row5-->
+        <tr>
+            <td class="rownum space">4</td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="rownum ">4</td>
+        </tr>
+        <!--row6-->
+        <tr>
+            <td class="rownum space">3</td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="black space"></td>
+            <td class="white space"></td>
+            <td class="rownum">3</td>
+        </tr>
+        <!--row7-->
+        <tr>
+            <td class="rownum">2</td>
+            <td class="white space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="black space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="white space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="black space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="white space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="black space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="white space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="black space"><img class="icon pawn wt" src="6.png"></td>
+            <td class="rownum">2</td>
+        </tr>
+        <!--row8-->
+        <tr>
+            <td class="rownum">1</td>
+            <td class="black space"><img class="icon castel wt" src="5.png"></td>
+            <td class="white space"><img class="icon knight wt" src="4.png"></td>
+            <td class="black space"><img class="icon bishop wt" src="3.png"></td>
+            <td class="white space"><img class="icon queen wt" src="1.png"></td>
+            <td class="black space"><img class="icon king wt" src="2.png"></td>
+            <td class="white space"><img class="icon bishop wt" src="3.png"></td>
+            <td class="black space"><img class="icon knight wt" src="4.png"></td>
+            <td class="white space"><img class="icon castel wt" src="5.png"></td>
+            <td class="rownum">1</td>
+        </tr>
+        <tr>
+
+            <td class="colnum"></td>
+            <td class="colnum">A</td>
+            <td class="colnum">B</td>
+            <td class="colnum">C</td>
+            <td class="colnum">D</td>
+            <td class="colnum">E</td>
+            <td class="colnum">F</td>
+            <td class="colnum">G</td>
+            <td class="colnum">H</td>
+        </tr>
+    </table>
+    <table>
+        <!--whiteout-->
+        <tr class="wspace">
+        </tr>
+    </table>
+    <!--</canvas>-->
+</body>
+
+</html>
