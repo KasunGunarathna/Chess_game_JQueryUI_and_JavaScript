@@ -1,29 +1,34 @@
 // JavaScript Document
+//variable for current movement
 var currentMove = 'white';
+//document ready
 $(document).ready(function() {
-
+    //all icons came to previous position if cannot dropable
     $('.icon').draggable({
         revert: 'invalid',
 
     });
+    //all black icons draggable disable
     $('.bl').draggable("disable");
-
+    //dropable icons
     $('.space').droppable({
         hoverClass: 'icon-hover',
         drop: function(event, ui) {
-
+            //variable for draggable icon 
             var dropped = ui.draggable;
+            // variable for dropable place
             var droppedOn = $(this);
 
-
+            //
             // $(droppedOn).droppable("disable");
-
-            // $(dropped).parent().droppable("enable");
+            //icon previous position droppable enable
+            $(dropped).parent().droppable("enable");
 
             $(dropped).draggable({ revert: true });
             if ($(droppedOn).is(":empty")) {
                 $(droppedOn).children().detach();
                 $(dropped).detach().css({ top: 0, left: 0, right: 0, bottom: 0 }).appendTo(droppedOn);
+                // $(droppedOn).children().draggable("enable");
                 switchTurn();
 
             } else {
@@ -62,9 +67,9 @@ function switchTurn() {
         $('.space').droppable({
             accept: '.bl'
         });
-        var c = document.getElementById("chesscanvas");
-        var ctx = c.getContext("2d");
-        ctx.rotate(Math.PI);
+        // var c = document.getElementById("chesscanvas");
+        // var ctx = c.getContext("2d");
+        // ctx.rotate(Math.PI);
 
     } else {
         currentMove = "white";
@@ -73,8 +78,8 @@ function switchTurn() {
         $('.space').droppable({
             accept: '.wt'
         });
-        var c = document.getElementById("chesscanvas");
-        var ctx = c.getContext("2d");
-        ctx.rotate(Math.PI);
+        // var c = document.getElementById("chesscanvas");
+        // var ctx = c.getContext("2d");
+        // ctx.rotate(Math.PI);
     }
 }
