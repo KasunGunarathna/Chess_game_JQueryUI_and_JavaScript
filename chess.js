@@ -3,9 +3,8 @@
 var currentMove = 'white';
 //document ready
 $(document).ready(function() {
-
-
-
+    // $(this).css('position', 'absolute');
+    // $(this).css('transform', 'translate(-50%, -50%)');
     $('.space').mouseover(function() {
         $(this).css('background-color', 'blue');
     });
@@ -24,6 +23,8 @@ $(document).ready(function() {
         $(this).css('z-index', '1');
 
         var value = cname[1];
+        var type = cname[2];
+        console.log(type);
         var yx = $(this).parent().attr('id');
         console.log(value);
         $('.space').droppable("disable");
@@ -35,19 +36,19 @@ $(document).ready(function() {
                 blackpawn(yx);
                 break;
             case "king":
-                king(yx);
+                king(yx, type);
                 break;
             case "rook":
-                rook(yx);
+                rook(yx, type);
                 break;
             case "bishop":
-                bishop(yx);
+                bishop(yx, type);
                 break;
             case "knight":
-                knight(yx);
+                knight(yx, type);
                 break;
             case "queen":
-                queen(yx);
+                queen(yx, type);
                 break;
             default:
         }
@@ -244,110 +245,179 @@ function blackpawn(iconId) {
     }
 }
 
-function king(iconId) {
+function king(iconId, type) {
 
     var row_index = $("#" + iconId).parent().index();
     var col_index = $("#" + iconId).index();
     console.log(row_index);
-    console.log(col_index);
+    console.log(type);
 
     for (var i = -1; i < 2; i++) {
         for (var j = -1; j < 2; j++) {
             if ((row_index + i) < 1 | (col_index + j) < 1 | (row_index + i) >= 9) {
                 continue;
             }
-            $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')').css('background-color', 'green');
-            $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')').droppable("enable");
+
+            var movepoints = $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')');
+            killKK(movepoints, type);
+            continue;
+
         }
     }
-    $(".colnum, .rownum").css('background-color', '');
-    $(".colnum, .rownum").droppable("disable");
+    // $(".colnum, .rownum").css('background-color', '');
+    // $(".colnum, .rownum").droppable("disable");
 }
 
-function rook(iconId) {
+function rook(iconId, type) {
 
     var row_index = $("#" + iconId).parent().index();
     var col_index = $("#" + iconId).index();
     console.log(row_index);
     console.log(col_index);
-    rookMove(row_index, col_index);
+    rookMove(row_index, col_index, type);
 
 }
 
-function rookMove(row_index, col_index) {
-    for (var i = 1 - col_index; i <= (8 - col_index); i++) {
-        $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
-        $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
+function rookMove(row_index, col_index, type) {
+
+    for (var i = 1; i <= (8 - row_index); i++) {
+        var movepoints = $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+        // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index) + ')').droppable("enable");
+
     }
-    for (var i = 1 - row_index; i <= (8 - row_index); i++) {
-        $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index) + ')').css('background-color', 'green');
-        $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index) + ')').droppable("enable");
+    for (var i = 1; i < (row_index); i++) {
+        var movepoints = $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+
+        // consol.log(killBR(movepoints, type));
+
+        // $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index) + ')').droppable("enable");
     }
-    $(".colnum, .rownum").css('background-color', '');
-    $(".colnum, .rownum").droppable("disable");
+    for (var i = 1; i < (col_index); i++) {
+        var movepoints = $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index - i) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+        // $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index - i) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index - i) + ')').droppable("enable");
+    }
+    for (var i = 1; i <= (8 - col_index); i++) {
+        var movepoints = $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index + i) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+        // $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
+    }
+    // $(".colnum, .rownum").css('background-color', '');
+    // $(".colnum, .rownum").droppable("disable");
 
 }
 
 
-function bishop(iconId) {
-
+function bishop(iconId, type) {
+    console.log(type);
     var row_index = $("#" + iconId).parent().index();
     var col_index = $("#" + iconId).index();
     console.log(row_index);
     console.log(col_index);
-    bishopMove(row_index, col_index);
+    bishopMove(row_index, col_index, type);
 
 }
 
-function bishopMove(row_index, col_index) {
+function bishopMove(row_index, col_index, type) {
+    console.log(type);
     for (var i = (1);; i++) {
         if ((row_index + i) < 1 | (col_index + i) < 1 | (row_index + i) >= 9 | (col_index + i) >= 9) {
             break;
         }
-        $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
-        $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
+        var movepoints = $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + i) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+        // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
     }
     for (var i = (1);; i++) {
         if ((row_index - i) < 1 | (col_index + i) < 1 | (row_index - i) >= 9 | (col_index + i) >= 9) {
             break;
         }
-        $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
-        $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
+        var movepoints = $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index + i) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+        // $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
     }
     for (var i = (1);; i++) {
         if ((row_index - i) < 1 | (col_index - i) < 1 | (row_index - i) >= 9 | (col_index - i) >= 9) {
             break;
         }
-        $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index - i) + ')').css('background-color', 'green');
-        $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index - i) + ')').droppable("enable");
+        var movepoints = $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index - i) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+        // $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index - i) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index - i) + ') td:eq(' + (col_index - i) + ')').droppable("enable");
     }
     for (var i = (1);; i++) {
         if ((row_index + i) < 1 | (col_index - i) < 1 | (row_index + i) >= 9 | (col_index - i) >= 9) {
             break;
         }
-        $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index - i) + ')').css('background-color', 'green');
-        $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index - i) + ')').droppable("enable");
+        var movepoints = $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index - i) + ')');
+        if (killBR(movepoints, type) == 1) {
+            continue;
+        } else {
+            break;
+        }
+        // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index - i) + ')').css('background-color', 'green');
+        // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index - i) + ')').droppable("enable");
     }
 }
 
-function knight(iconId) {
+function knight(iconId, type) {
     var row_index = $("#" + iconId).parent().index();
     var col_index = $("#" + iconId).index();
     console.log(row_index);
     console.log(col_index);
-    knightMove(row_index, col_index);
+    knightMove(row_index, col_index, type);
 }
 
-function knightMove(row_index, col_index) {
+function knightMove(row_index, col_index, type) {
     for (var i = -2; i < 3; i += 4) {
         for (var j = -1; j < 2; j += 2) {
             if ((row_index + i) < 1 | (row_index + i) > 8 | (col_index + j) < 1 | (col_index + j) > 8) {
                 console.log(i + " " + j);
                 continue;
-            } else {
-                $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')').css('background-color', 'green');
-                $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')').droppable("enable");
             }
+            var movepoints = $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')');
+
+            killKK(movepoints, type);
+            continue;
+            // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')').css('background-color', 'green');
+            // $('#board tr:eq(' + (row_index + i) + ') td:eq(' + (col_index + j) + ')').droppable("enable");
+
         }
     }
     for (var i = -2; i < 3; i += 4) {
@@ -355,19 +425,54 @@ function knightMove(row_index, col_index) {
             if ((row_index + j) < 1 | (row_index + j) > 8 | (col_index + i) < 1 | (col_index + i) > 8) {
                 console.log(i + " " + j);
                 continue;
-            } else {
-                $('#board tr:eq(' + (row_index + j) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
-                $('#board tr:eq(' + (row_index + j) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
             }
+            var movepoints = $('#board tr:eq(' + (row_index + j) + ') td:eq(' + (col_index + i) + ')');
+            killKK(movepoints, type);
+            continue;
+
+            // $('#board tr:eq(' + (row_index + j) + ') td:eq(' + (col_index + i) + ')').css('background-color', 'green');
+            // $('#board tr:eq(' + (row_index + j) + ') td:eq(' + (col_index + i) + ')').droppable("enable");
+
         }
     }
 }
 
-function queen(iconId) {
+function queen(iconId, type) {
     var row_index = $("#" + iconId).parent().index();
     var col_index = $("#" + iconId).index();
     console.log(row_index);
     console.log(col_index);
-    bishopMove(row_index, col_index);
-    rookMove(row_index, col_index);
+    bishopMove(row_index, col_index, type);
+    rookMove(row_index, col_index, type);
+}
+
+function killKK(movepoints, type) {
+    if ($(movepoints).is(":empty")) {
+        $(movepoints).css('background-color', 'green');
+        $(movepoints).droppable("enable");
+        return;
+    }
+
+    if ($(movepoints).children().attr('class').split(' ')[2] != type) {
+        $(movepoints).css('background-color', 'red');
+        $(movepoints).droppable("enable");
+        return;
+    }
+}
+
+
+function killBR(movepoints, type) {
+
+    if ($(movepoints).is(":empty")) {
+        $(movepoints).css('background-color', 'green');
+        $(movepoints).droppable("enable");
+        return 1;
+    }
+    console.log($(movepoints).children().attr('class').split(' ')[2]);
+    console.log(type);
+    if ($(movepoints).children().attr('class').split(' ')[2] != type) {
+        $(movepoints).css('background-color', 'red');
+        $(movepoints).droppable("enable");
+        return 0;
+    }
 }
